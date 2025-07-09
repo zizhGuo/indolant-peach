@@ -1,0 +1,32 @@
+name: Pull Trigger Workflow
+
+on:
+  pull_request:
+    branches:
+      - test
+
+jobs:
+  github_runner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run shell script
+        run: bash scripts/deploy.sh
+
+  # self_hosted_runner:
+  #   runs-on: self-hosted
+  #   steps:
+  #     - name: Run shell script
+  #       run: bash scripts/deploy.sh
+
+# jobs:
+#   deploy:
+#     runs-on: ${{ github.event.pull_request.head.repo.full_name == github.repository && 'ubuntu-latest' || 'self-hosted' }}
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: Run shell script
+#         run: bash scripts/deploy.sh
