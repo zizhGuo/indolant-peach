@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Run shell script
         # run: bash scripts/deploy.sh
-        run: bash scripts/test.sh
+        run: bash scripts/test2.sh
 
   # self_hosted_runner:
   #   runs-on: self-hosted
