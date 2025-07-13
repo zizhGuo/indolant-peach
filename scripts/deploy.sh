@@ -7,6 +7,8 @@ echo "Running deployment script..."
 # 功能 1: 打印字符串
 echo "Hello from GitHub Actions!"
 
+echo "打印环境变量HOME的值: $HOME"
+
 # 功能 2: 复制 root 所属文件到 /home/ubuntu，并更改权限
 SRC_FILE="/etc/hostname"    # 你可以替换成其他 root 属主文件
 DEST_FILE="/home/ubuntu/command_history.log"
