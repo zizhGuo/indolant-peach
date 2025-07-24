@@ -1,0 +1,37 @@
+# .github/workflows/gateway.yml  (main)
+name: Gateway Router
+on:
+  workflow_dispatch:
+    inputs:
+      workflow:            # ci 或 cd
+        description: 'Select workflow'
+        required: true
+        type: choice
+        options: [ci, cd]
+      branch:              # dev / test / prod
+        description: 'Target branch'
+        required: true
+        # default: [dev, test]
+        type: choice
+        options: [dev, test, prod]
+
+jobs:
+  run_workflow:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run workflow
+        run: |
+          if [ "${{ github.event.inputs.workflow }}" == "ci" ]; then
+            echo "Running CI workflow on branch ${{ github.event.inputs.branch }}"
+            # Add your CI workflow commands here
+          elif [ "${{ github.event.inputs.workflow }}" == "cd" ]; then
+            echo "Running CD workflow on branch ${{ github.event.inputs.branch }}"
+            # Add your CD workflow commands here
+          fi
+          echo "Workflow: ${{ github.event.inputs.workflow }}"
+          echo "Branch: ${{ github.event.inputs.branch }}"
+          echo "Current date and time: $(date '+%Y-%m-%d %H:%M:%S')"
+          echo "Python version: $(python3 --version)"
+          echo "One last time testing dummy change."
+          echo "This is a test for the gateway router workflow."
