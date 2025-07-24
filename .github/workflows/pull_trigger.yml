@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - test
+    types: [opened, reopened, edited]
 
 jobs:
   github_runner:
@@ -11,9 +12,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Run shell script
-        # run: bash scripts/deploy.sh
-        run: bash scripts/test2.sh
+        shell: bash -l {0}
+        run: |
+          echo "Hello from GitHub Actions! Just for testing purposes."
+          date "+%Y-%m-%d %H:%M:%S"
+          echo "One last time testing dummy change."
+          python3 --version
+          date "+%Y-%m-%d %H:%M:%S"
+
+      # - name: Run shell script
+      #   # run: bash scripts/deploy.sh
+      #   run: bash scripts/test2.sh
 
   # self_hosted_runner:
   #   runs-on: self-hosted
