@@ -35,3 +35,5 @@ jobs:
           echo "Python version: $(python3 --version)"
           echo "One last time testing dummy change."
           echo "This is a test for the gateway router workflow."
+          echo "print ref: ${{ github.event.pull_request.head.ref }}"
+          echo "print head repo: ${{ github.event.pull_request }}"
