@@ -14,5 +14,7 @@ runs:
   steps:
     - run: |
         python3 ${{ github.action_path }}/script.py "${{ inputs.version }}" "${{ inputs.note }}" > result.txt
-        echo "result=$(cat result.txt)" >> $GITHUB_OUTPUT
+        echo "result<<EOF" >> $GITHUB_OUTPUT
+        cat result.txt >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
       shell: bash
