@@ -15,6 +15,11 @@ runs:
     - run: |
         set +e
         output=$(python3 ${{ github.action_path }}/script.py "${{ inputs.version }}" "${{ inputs.note }}")
-        echo "$output"
-        echo "result=$output" >> $GITHUB_OUTPUT
+        echo "Raw output: $output"
+        echo "result=$output" >> "$GITHUB_OUTPUT"
+      id: py
+      shell: bash
+    - run: |
+        echo "GITHUB_OUTPUT=$GITHUB_OUTPUT"
+        test -f "$GITHUB_OUTPUT" || echo "::error::GITHUB_OUTPUT not found"
       shell: bash
