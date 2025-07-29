@@ -30,19 +30,18 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger repository_dispatch via GitHub Script
+      - name: Trigger workflow_dispatch on target branch
         uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.PAT }}
           script: |
-            await github.rest.repos.createDispatchEvent({
+            await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: '${{ inputs.branch }}',
-              event_type: '${{ inputs.workflow }}',
-              client_payload: {
-                branch: '${{ inputs.branch }}',
-                version: '${{ inputs.version }}',
-                note: '${{ inputs.note || '' }}'
+              workflow_id: `${{ inputs.workflow }}.yml`,
+              ref: `${{ inputs.branch }}`,
+              inputs: {
+                version: `${{ inputs.version }}`,
+                note: `${{ inputs.note || '' }}`
               }
             });
-          github-token: ${{ secrets.PAT }}
