@@ -37,6 +37,7 @@ jobs:
             await github.rest.repos.createDispatchEvent({
               owner: context.repo.owner,
               repo: context.repo.repo,
+              ref: '${{ inputs.branch }}',
               event_type: '${{ inputs.workflow }}',
               client_payload: {
                 branch: '${{ inputs.branch }}',
