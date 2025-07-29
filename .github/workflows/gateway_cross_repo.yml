@@ -44,3 +44,4 @@ jobs:
                 note: '${{ inputs.note || '' }}'
               }
             });
+          github-token: ${{ secrets.PAT }}
