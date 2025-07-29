@@ -3,15 +3,6 @@ name: CI Workflow
 on:
   repository_dispatch:
     types: [ci]
-    inputs:
-      version:
-        description: 'Release version'
-        required: true
-        type: string
-      note:
-        description: 'Trigger note or remarks'
-        required: false
-        type: string
 
 jobs:
   run_ci:
