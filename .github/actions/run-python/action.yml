@@ -13,8 +13,8 @@ runs:
   using: 'composite'
   steps:
     - run: |
-        python3 ${{ github.action_path }}/script.py "${{ inputs.version }}" "${{ inputs.note }}" > result.txt
-        echo "result<<EOF" >> $GITHUB_OUTPUT
-        cat result.txt >> $GITHUB_OUTPUT
-        echo "EOF" >> $GITHUB_OUTPUT
+        set +e
+        output=$(python3 ${{ github.action_path }}/script.py "${{ inputs.version }}" "${{ inputs.note }}")
+        echo "$output"
+        echo "result=$output" >> $GITHUB_OUTPUT
       shell: bash
