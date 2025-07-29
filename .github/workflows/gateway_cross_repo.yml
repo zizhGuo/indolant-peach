@@ -1,0 +1,46 @@
+name: Gateway Router Cross-Repo
+
+on:
+  workflow_dispatch:
+    inputs:
+      workflow:
+        description: 'Select workflow to trigger'
+        type: choice
+        required: true
+        options: [ci, cd]
+      branch:
+        description: 'Target branch'
+        type: choice
+        required: true
+        options: [dev, test, prod]
+      version:
+        description: 'Release version'
+        required: true
+        type: string
+      note:
+        description: 'Trigger note or remarks'
+        required: false
+        type: string
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger repository_dispatch via GitHub Script
+        uses: actions/github-script@v6
+        with:
+          script: |
+            await github.rest.repos.createDispatchEvent({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              event_type: '${{ inputs.workflow }}',
+              client_payload: {
+                branch: '${{ inputs.branch }}',
+                version: '${{ inputs.version }}',
+                note: '${{ inputs.note || '' }}'
+              }
+            });
