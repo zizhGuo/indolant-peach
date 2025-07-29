@@ -1,0 +1,16 @@
+name: 'Say Hello'
+description: 'A simple action that prints hello messages'
+inputs:
+  name:
+    required: true
+  version:
+    required: false
+  note:
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - run: echo "Hello ${{ inputs.name }}!"
+    - run: echo "Welcome to GitHub Actions!"
+    - run: echo "Version: ${{ inputs.version }}"
+    - run: echo "Note: ${{ inputs.note }}"

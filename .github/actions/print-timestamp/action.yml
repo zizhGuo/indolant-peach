@@ -1,0 +1,12 @@
+name: 'Print Timestamp'
+description: 'Print the current timestamp and version info'
+inputs:
+  version:
+    description: 'Version string'
+    required: false
+  note:
+    description: 'Trigger note'
+    required: false
+runs:
+  using: 'node16'
+  main: 'index.js'
