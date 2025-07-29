@@ -10,7 +10,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: echo "Hello ${{ inputs.name }}!"
-    - run: echo "Welcome to GitHub Actions!"
-    - run: echo "Version: ${{ inputs.version }}"
-    - run: echo "Note: ${{ inputs.note }}"
+    - run: |
+        echo "Hello ${{ inputs.name }}!"
+        echo "Welcome to GitHub Actions!"
+        echo "Version: ${{ inputs.version }}"
+        echo "Note: ${{ inputs.note }}"
