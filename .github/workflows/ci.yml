@@ -1,37 +1,44 @@
 name: CI Workflow
 
 on:
-  repository_dispatch:
-    types: [ci]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version'
+        required: true
+        type: string
+      note:
+        description: 'Trigger note or remarks'
+        required: false
+        type: string
 
 jobs:
   run_ci:
-    if: github.event.client_payload.branch == 'dev'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
+      - name: Checkout dev branch
         uses: actions/checkout@v4
 
       - name: Run Print Timestamp
         uses: ./.github/actions/print-timestamp
         with:
-          version: ${{ github.event.client_payload.version }}
-          note: ${{ github.event.client_payload.note }}
+          version: ${{ inputs.version }}
+          note: ${{ inputs.note }}
 
       - name: Say Hello
         uses: ./.github/actions/say-hello
         with:
           name: Dev
-          version: ${{ github.event.client_payload.version }}
-          note: ${{ github.event.client_payload.note }}
+          version: ${{ inputs.version }}
+          note: ${{ inputs.note }}
 
       - name: Run Python Logic
         uses: ./.github/actions/run-python
         id: py
         with:
-          version: ${{ github.event.client_payload.version }}
-          note: ${{ github.event.client_payload.note }}
+          version: ${{ inputs.version }}
+          note: ${{ inputs.note }}
 
       - name: Print Python Output
         run: |
