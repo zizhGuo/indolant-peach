@@ -31,4 +31,5 @@ jobs:
           version: ${{ github.event.client_payload.version }}
           note: ${{ github.event.client_payload.note }}
 
-      - run: echo "Python Output: ${{ steps.py.outputs.result }}"
+      - name: Print Python Output
+        run: echo "Python Output: ${{ steps.py.outputs.result }}"
