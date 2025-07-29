@@ -1,0 +1,26 @@
+name: 'Run Python Script'
+description: 'Run a Python script and output a result'
+
+inputs:
+  version:
+    required: false
+  note:
+    required: false
+outputs:
+  result:
+    description: 'Result from script'
+    value: ${{ steps.py.outputs.result }}
+runs:
+  using: 'composite'
+  steps:
+    - run: |
+        set +e
+        output=$(python3 ${{ github.action_path }}/script.py "${{ inputs.version }}" "${{ inputs.note }}")
+        echo "Raw output: $output"
+        echo "result=$output" >> "$GITHUB_OUTPUT"
+      id: py
+      shell: bash
+    - run: |
+        echo "GITHUB_OUTPUT=$GITHUB_OUTPUT"
+        test -f "$GITHUB_OUTPUT" || echo "::error::GITHUB_OUTPUT not found"
+      shell: bash
